@@ -23,7 +23,10 @@ class HomeTabWidget extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pushNamed(AddNewAccountScreen.routeName);
           },
-          child: const Icon(Icons.add),
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
         ),
       ),
     );

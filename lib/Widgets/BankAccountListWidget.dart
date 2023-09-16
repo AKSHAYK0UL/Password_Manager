@@ -20,8 +20,9 @@ class BankAccountListWidget extends StatelessWidget {
             : Align(
                 alignment: Alignment.topCenter,
                 child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
-                  reverse: true,
+                  primary: true,
                   itemCount: _hiveBANKbox.length,
                   itemBuilder: (context, index) {
                     final BankDetail =

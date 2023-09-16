@@ -22,11 +22,13 @@ class AccountListWidget extends StatelessWidget {
             : Align(
                 alignment: Alignment.topCenter,
                 child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
-                  reverse: true,
+                  primary: true,
                   itemCount: Hivebox.length,
                   itemBuilder: (context, index) {
                     final AccountDetail = Hivebox.getAt(index) as AccountModel;
+
                     return Padding(
                       padding: const EdgeInsets.all(5),
                       child: ListTile(

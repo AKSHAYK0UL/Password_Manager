@@ -97,7 +97,7 @@ class _BankInputWidgetState extends State<BankInputWidget> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
           content: Text(
-            GetBankId == null ? 'Added sucesssfully' : 'Saved sucessfully',
+            GetBankId == null ? 'Added sucesssfully' : 'Updated sucessfully',
             style: Theme.of(context).textTheme.titleMedium,
           ),
           backgroundColor: Colors.grey.shade200,
@@ -628,12 +628,12 @@ class _BankInputWidgetState extends State<BankInputWidget> {
                   onPressed: () {
                     _saveANDcheck();
                   },
-                  icon: const Icon(
-                    Icons.add,
+                  icon: Icon(
+                    GetBankId == null ? Icons.add : Icons.update,
                     color: Colors.black,
                   ),
-                  label: const Text(
-                    'Add',
+                  label: Text(
+                    GetBankId == null ? 'Add' : 'Update',
                     style: TextStyle(color: Colors.black),
                   ),
                   style: TextButton.styleFrom(

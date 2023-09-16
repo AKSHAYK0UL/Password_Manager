@@ -52,7 +52,7 @@ class _InputWidgetState extends State<InputWidget> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
           content: Text(
-            accountID != null ? 'Saved sucessfully' : 'Added sucesssfully',
+            accountID == null ? 'Added sucessfully' : 'Updated sucesssfully',
             style: Theme.of(context).textTheme.titleMedium,
           ),
           backgroundColor: Colors.grey.shade200,
@@ -280,11 +280,11 @@ class _InputWidgetState extends State<InputWidget> {
                     saveform(context);
                   },
                   icon: Icon(
-                    accountID == null ? Icons.add : Icons.save,
+                    accountID == null ? Icons.add : Icons.update,
                     color: Colors.black,
                   ),
                   label: Text(
-                    accountID == null ? 'Add' : 'Save',
+                    accountID == null ? 'Add' : 'Update',
                     style: const TextStyle(color: Colors.black, fontSize: 18),
                   ),
                 ),

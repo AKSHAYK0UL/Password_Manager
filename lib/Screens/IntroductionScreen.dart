@@ -32,9 +32,9 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
               print(_lastPage);
             }),
             children: [
-              buildintro('assets/intSCR/introSCR(3).json'),
-              buildintro('assets/intSCR/introSCR(5).json'),
-              buildintro('assets/intSCR/introSCR(1).json'),
+              buildintro('assets/intro1scr.json'),
+              buildintro('assets/intro2scr.json'),
+              buildintro('assets/intro3scr.json'),
             ],
           ),
           Align(

@@ -47,7 +47,7 @@ class SettingScreen extends StatelessWidget {
             buildOption(
               context,
               Icons.person,
-              'Update Username',
+              'Update UserName',
               ChangeuserNameScreen.routeName,
             ),
             const SizedBox(

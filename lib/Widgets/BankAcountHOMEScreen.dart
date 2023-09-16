@@ -23,7 +23,10 @@ class BankAcountHOMEScreen extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pushNamed(AddEditBankAccountScreen.routeName);
           },
-          child: const Icon(Icons.add),
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
         ),
       ),
     );
