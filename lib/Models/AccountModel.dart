@@ -303,6 +303,12 @@ class Datalist with ChangeNotifier {
         color: Colors.blue.shade400,
         size: 25,
       );
+    } else if (appName.toLowerCase().contains('microsoft')) {
+      return Icon(
+        FontAwesomeIcons.microsoft,
+        color: Colors.blue.shade400,
+        size: 25,
+      );
     }
     return Icon(
       Icons.apps_outage_sharp,

@@ -25,8 +25,11 @@ class BankAccountListWidget extends StatelessWidget {
                   primary: true,
                   itemCount: _hiveBANKbox.length,
                   itemBuilder: (context, index) {
+                    final hl = _hiveBANKbox.length;
+                    // final AccountDetail = reverseHive[index];
+                    int rIndex = hl - index - 1;
                     final BankDetail =
-                        _hiveBANKbox.getAt(index) as BankAccountModel;
+                        _hiveBANKbox.getAt(rIndex) as BankAccountModel;
                     return Padding(
                       padding: const EdgeInsets.all(5),
                       child: ListTile(
@@ -104,7 +107,7 @@ class BankAccountListWidget extends StatelessWidget {
                                         ),
                                         TextButton(
                                           onPressed: () {
-                                            _hiveBANKbox.deleteAt(index);
+                                            _hiveBANKbox.deleteAt(rIndex);
                                             Navigator.of(context).pop();
                                           },
                                           child: Text(

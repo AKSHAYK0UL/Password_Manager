@@ -27,7 +27,10 @@ class AccountListWidget extends StatelessWidget {
                   primary: true,
                   itemCount: Hivebox.length,
                   itemBuilder: (context, index) {
-                    final AccountDetail = Hivebox.getAt(index) as AccountModel;
+                    final hl = Hivebox.length;
+                    // final AccountDetail = reverseHive[index];
+                    int rIndex = hl - index - 1;
+                    final AccountDetail = Hivebox.getAt(rIndex) as AccountModel;
 
                     return Padding(
                       padding: const EdgeInsets.all(5),
@@ -101,7 +104,8 @@ class AccountListWidget extends StatelessWidget {
                                         ),
                                         TextButton(
                                           onPressed: () {
-                                            Hivebox.deleteAt(index);
+                                            Hivebox.deleteAt(rIndex);
+
                                             Navigator.of(context).pop();
                                           },
                                           child: Text(
