@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 import 'ChangePasswordScreen.dart';
 import 'ChangeUserNameScreen.dart';
 
-class SettingScreen extends StatelessWidget {
+class SettingScreen extends StatefulWidget {
   static const routeName = 'SettingScreen';
   const SettingScreen({super.key});
+
+  @override
+  State<SettingScreen> createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen> {
   Widget buildOption(BuildContext context, IconData icon, String optionName,
       String routename) {
     return ListTile(
@@ -27,6 +34,8 @@ class SettingScreen extends StatelessWidget {
       title: Text(optionName),
     );
   }
+
+  bool _biometricOption = Hive.box('userinfo').getAt(3);
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +68,35 @@ class SettingScreen extends StatelessWidget {
               'Reset Password',
               ChangePasswordScreen.routeName,
             ),
+            const SizedBox(
+              height: 10,
+            ),
+            SwitchListTile(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              secondary: const CircleAvatar(
+                radius: 25,
+                child: Icon(
+                  Icons.fingerprint,
+                  size: 30,
+                ),
+              ),
+              title: const Text("Biometric"),
+              tileColor: Colors.grey.shade300,
+              value: _biometricOption,
+              activeColor: Colors.grey.shade900,
+              onChanged: (value) {
+                setState(
+                  () {
+                    _biometricOption = value;
+                    Hive.box('userinfo').putAt(3, _biometricOption);
+                  },
+                );
+              },
+            )
           ],
         ),
       ),

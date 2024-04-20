@@ -43,6 +43,7 @@ dependencies:
   font_awesome_flutter: ^10.4.0
   smooth_page_indicator: ^1.1.0
   flutter_native_splash: ^2.2.19
+  local_auth: ^2.1.6
 flutter_native_splash:
   image: assets/NEX-SHIELD.png
   color: "#ffffff"

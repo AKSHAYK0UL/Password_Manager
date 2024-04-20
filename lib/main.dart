@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:password_manager/Screens/EnableBiometric.dart';
 import 'package:password_manager/Screens/SetFirstTimePasswordScreen.dart';
 import 'package:provider/provider.dart';
 import 'Models/AccountModel.dart';
@@ -123,6 +124,7 @@ class Sigma extends StatelessWidget {
           AddEditBankAccountScreen.routeName: (context) =>
               const AddEditBankAccountScreen(),
           BankDetailScreen.routeName: (context) => const BankDetailScreen(),
+          EnableBiometric.routeName: (context) => const EnableBiometric(),
         },
       ),
     );

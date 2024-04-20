@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.password_manager">
+     <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
    <application
         android:allowBackup="false"
         android:fullBackupOnly="false"

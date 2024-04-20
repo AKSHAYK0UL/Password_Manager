@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:lottie/lottie.dart';
+import 'package:password_manager/Screens/EnableBiometric.dart';
 
 import 'CreatingUserScreen.dart';
 
@@ -19,16 +21,34 @@ class _SetFirstTimePasswordScreenState
   String? _name;
   String? _password;
   bool _eye = true;
-  void _createAccount() {
+  void _OnTapNext() {
     _formkey.currentState!.save();
     final valid = _formkey.currentState!.validate();
     if (valid) {
       final _hivebox = Hive.box('userinfo');
       _hivebox.put(0, _password);
       _hivebox.put(1, _name);
-      Navigator.of(context).pushReplacementNamed(CreatingUserScreen.routeName);
+      _hivebox.put(2, _isFingerPrintSupported);
+      if (_isFingerPrintSupported) {
+        Navigator.of(context).pushNamed(EnableBiometric.routeName);
+      } else {
+        Navigator.of(context)
+            .pushReplacementNamed(CreatingUserScreen.routeName);
+      }
     }
     return;
+  }
+
+  bool _isFingerPrintSupported = false;
+  final auth = LocalAuthentication();
+  @override
+  void initState() {
+    auth.isDeviceSupported().then((value) {
+      setState(() {
+        _isFingerPrintSupported = true;
+      });
+    });
+    super.initState();
   }
 
   @override
@@ -176,15 +196,15 @@ class _SetFirstTimePasswordScreenState
                   width: double.infinity,
                   child: TextButton.icon(
                     onPressed: () {
-                      _createAccount();
+                      _OnTapNext();
                     },
                     icon: const Icon(
-                      Icons.person,
+                      Icons.arrow_forward,
                       color: Colors.black,
                       size: 25,
                     ),
                     label: Text(
-                      'Create',
+                      'Next',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     style: TextButton.styleFrom(

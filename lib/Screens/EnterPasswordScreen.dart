@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:password_manager/Screens/HomeScreen.dart';
 
 class EnterPasswordScreen extends StatefulWidget {
   static const routeName = 'EnterPasswordScreen';
-  EnterPasswordScreen({super.key});
+  const EnterPasswordScreen({super.key});
 
   @override
   State<EnterPasswordScreen> createState() => _EnterPasswordScreenState();
@@ -13,9 +15,27 @@ class EnterPasswordScreen extends StatefulWidget {
 
 class _EnterPasswordScreenState extends State<EnterPasswordScreen> {
   final _checkPasswordController = TextEditingController();
-
+  bool isSupported = Hive.box('userinfo').getAt(2);
   bool _eye = true;
   bool _password = true;
+  final auth = LocalAuthentication();
+
+  Future<bool> BiometricAuth() async {
+    if (!isSupported) {
+      return false;
+    }
+    try {
+      return await auth.authenticate(
+          localizedReason: "Tap to unlock",
+          options: const AuthenticationOptions(
+            useErrorDialogs: true,
+            stickyAuth: true,
+            biometricOnly: true,
+          ));
+    } on PlatformException catch (_) {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +150,27 @@ class _EnterPasswordScreenState extends State<EnterPasswordScreen> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: media.height * 0.20,
+              ),
+              if (Hive.box('userinfo').getAt(3) &&
+                  Hive.box('userinfo').getAt(2))
+                Center(
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(30),
+                    onTap: () async {
+                      final authvalue = await BiometricAuth();
+                      if (authvalue) {
+                        Navigator.of(context)
+                            .pushReplacementNamed(HomeScreen.routeName);
+                      }
+                    },
+                    child: const Icon(
+                      Icons.fingerprint,
+                      size: 70,
+                    ),
+                  ),
+                ),
             ],
           ),
         ),

@@ -37,7 +37,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         elevation: 0,
         backgroundColor: Theme.of(context).canvasColor,
         title: Text(
-          'Change Password',
+          'Reset Password',
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
@@ -187,11 +187,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       saveANDcheck();
                     },
                     icon: const Icon(
-                      Icons.lock,
+                      Icons.lock_reset_outlined,
                       color: Colors.black,
                     ),
                     label: Text(
-                      'Update',
+                      'Reset',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     style: TextButton.styleFrom(
