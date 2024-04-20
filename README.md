@@ -7,7 +7,9 @@ Secure Account Creation: Users are required to create a simple account with thei
 
 Password Protection: Every time the user opens the app, they must enter their password to gain access. This adds an extra layer of security to protect your sensitive information.
 
-Personalized Greeting: Upon entering the app, users are greeted with a personalized message based on the time of day: good morning, good afternoon, or good night.
+Biometric Authentication:For added convenience and security, users can also opt to use biometric authentication (fingerprint) to access the app.
+
+Personalized Greeting: Upon entering the app, users are greeted with a personalized message based on the time of day: good morning, good afternoon, or good evening.
 
 Apps and Bank Tabs: The app is divided into two tabs: Apps and Bank.
 
