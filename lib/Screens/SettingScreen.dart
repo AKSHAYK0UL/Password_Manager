@@ -71,32 +71,33 @@ class _SettingScreenState extends State<SettingScreen> {
             const SizedBox(
               height: 10,
             ),
-            SwitchListTile(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              secondary: const CircleAvatar(
-                radius: 25,
-                child: Icon(
-                  Icons.fingerprint,
-                  size: 30,
+            if (Hive.box('userinfo').getAt(2))
+              SwitchListTile(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
                 ),
-              ),
-              title: const Text("Biometric"),
-              tileColor: Colors.grey.shade300,
-              value: _biometricOption,
-              activeColor: Colors.grey.shade900,
-              onChanged: (value) {
-                setState(
-                  () {
-                    _biometricOption = value;
-                    Hive.box('userinfo').putAt(3, _biometricOption);
-                  },
-                );
-              },
-            )
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                secondary: const CircleAvatar(
+                  radius: 25,
+                  child: Icon(
+                    Icons.fingerprint,
+                    size: 30,
+                  ),
+                ),
+                title: const Text("Biometric"),
+                tileColor: Colors.grey.shade300,
+                value: _biometricOption,
+                activeColor: Colors.grey.shade900,
+                onChanged: (value) {
+                  setState(
+                    () {
+                      _biometricOption = value;
+                      Hive.box('userinfo').putAt(3, _biometricOption);
+                    },
+                  );
+                },
+              )
           ],
         ),
       ),

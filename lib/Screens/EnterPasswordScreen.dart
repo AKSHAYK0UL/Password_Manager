@@ -139,9 +139,9 @@ class _EnterPasswordScreenState extends State<EnterPasswordScreen> {
                           .pushReplacementNamed(HomeScreen.routeName);
                     }
                   },
-                  icon: const Icon(Icons.skip_next_rounded),
+                  icon: const Icon(Icons.lock_open_outlined),
                   label: Text(
-                    "Next",
+                    "Unlock",
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   style: TextButton.styleFrom(

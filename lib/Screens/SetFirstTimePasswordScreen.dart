@@ -198,13 +198,15 @@ class _SetFirstTimePasswordScreenState
                     onPressed: () {
                       _OnTapNext();
                     },
-                    icon: const Icon(
-                      Icons.arrow_forward,
+                    icon: Icon(
+                      _isFingerPrintSupported
+                          ? Icons.arrow_forward
+                          : Icons.person,
                       color: Colors.black,
                       size: 25,
                     ),
                     label: Text(
-                      'Next',
+                      _isFingerPrintSupported ? 'Next' : 'Create',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     style: TextButton.styleFrom(
