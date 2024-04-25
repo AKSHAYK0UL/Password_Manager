@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../Models/AccountModel.dart';
 
 class InputWidget extends StatefulWidget {
-  InputWidget({super.key});
+  const InputWidget({super.key});
 
   @override
   State<InputWidget> createState() => _InputWidgetState();

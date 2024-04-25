@@ -5,7 +5,7 @@ class AccountInfoWidget extends StatelessWidget {
   String option;
   String info;
   IconData icon;
-  AccountInfoWidget(this.option, this.info, this.icon);
+  AccountInfoWidget(this.option, this.info, this.icon, {super.key});
 
   void _ontap(BuildContext context) {
     Clipboard.setData(

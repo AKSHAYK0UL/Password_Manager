@@ -16,8 +16,7 @@ class _SetFirstTimePasswordScreenState
     extends State<SetFirstTimePasswordScreen> {
   final _formkey = GlobalKey<FormState>();
   String? _name;
-  // String? _password;
-  // bool _eye = true;
+
   void _OnTapNext() {
     _formkey.currentState!.save();
     final valid = _formkey.currentState!.validate();
@@ -25,13 +24,7 @@ class _SetFirstTimePasswordScreenState
       final _hivebox = Hive.box('userinfo');
       _hivebox.put(1, _name);
 
-      // if (_isFingerPrintSupported) {
-      //  Navigator.of(context).pushNamed(EnableBiometric.routeName);
       Navigator.of(context).pushNamed(CreatePinScreen.routeName);
-      // } else {
-      //   Navigator.of(context)
-      //       .pushReplacementNamed(CreatingUserScreen.routeName);
-      // }
     }
     return;
   }
