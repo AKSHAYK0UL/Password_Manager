@@ -3,6 +3,8 @@ import 'package:hive/hive.dart';
 
 import 'ChangePasswordScreen.dart';
 import 'ChangeUserNameScreen.dart';
+import 'ResetPin_Pin.dart';
+import 'UpdateUserNamePin.dart';
 
 class SettingScreen extends StatefulWidget {
   static const routeName = 'SettingScreen';
@@ -57,7 +59,8 @@ class _SettingScreenState extends State<SettingScreen> {
               context,
               Icons.person,
               'Update UserName',
-              ChangeuserNameScreen.routeName,
+              // ChangeuserNameScreen.routeName,
+              UpdateUserNamePin.routeName,
             ),
             const SizedBox(
               height: 10,
@@ -66,7 +69,7 @@ class _SettingScreenState extends State<SettingScreen> {
               context,
               Icons.lock,
               'Reset Password',
-              ChangePasswordScreen.routeName,
+              ResetPin_Pin.routeName,
             ),
             const SizedBox(
               height: 10,

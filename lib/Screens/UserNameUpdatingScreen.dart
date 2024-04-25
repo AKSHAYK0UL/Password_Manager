@@ -42,7 +42,7 @@ class _UserNameUpdatingScreenState extends State<UserNameUpdatingScreen> {
               ),
             ),
             Text(
-              'Username Updated',
+              'Updating...',
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ],

@@ -13,12 +13,15 @@ import 'Screens/AddNewAccountScreen.dart';
 import 'Screens/BankDetailScreen.dart';
 import 'Screens/ChangePasswordScreen.dart';
 import 'Screens/ChangeUserNameScreen.dart';
+import 'Screens/CreatePinScreen.dart';
 import 'Screens/CreatingUserScreen.dart';
 import 'Screens/EnterPasswordScreen.dart';
 import 'Screens/HomeScreen.dart';
 import 'Screens/IntroductionScreen.dart';
 import 'Screens/PasswordUpdatingScreen.dart';
+import 'Screens/ResetPin_Pin.dart';
 import 'Screens/SettingScreen.dart';
+import 'Screens/UpdateUserNamePin.dart';
 import 'Screens/UserNameUpdatingScreen.dart';
 
 void main() async {
@@ -61,6 +64,15 @@ class Sigma extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          scrollbarTheme: ScrollbarThemeData(
+            interactive: true,
+            thickness: MaterialStateProperty.all(6),
+            trackVisibility: MaterialStateProperty.all(true),
+            trackBorderColor: MaterialStateProperty.all(Colors.white),
+            trackColor: MaterialStateProperty.all(Colors.blue.shade100),
+            radius: const Radius.circular(0.0),
+            thumbColor: MaterialStateProperty.all(Colors.grey.shade500),
+          ),
           primarySwatch: Colors.grey,
           canvasColor: Colors.white,
           hintColor: Colors.black54,
@@ -100,17 +112,18 @@ class Sigma extends StatelessWidget {
         home: Hive.box('firsttime').isEmpty
             ? IntroductionScreen()
             : Hive.box('userinfo').isEmpty
-                ? SetFirstTimePasswordScreen()
-                : EnterPasswordScreen(),
+                ? const SetFirstTimePasswordScreen()
+                : const EnterPasswordScreen(),
         routes: {
           SetFirstTimePasswordScreen.routeName: (context) =>
-              SetFirstTimePasswordScreen(),
+              const SetFirstTimePasswordScreen(),
           HomeScreen.routeName: (context) => const HomeScreen(),
           AddNewAccountScreen.routeName: (context) =>
               const AddNewAccountScreen(),
           AccountDetailScreen.routeName: (context) =>
               const AccountDetailScreen(),
-          EnterPasswordScreen.routeName: (context) => EnterPasswordScreen(),
+          EnterPasswordScreen.routeName: (context) =>
+              const EnterPasswordScreen(),
           SettingScreen.routeName: (context) => const SettingScreen(),
           ChangeuserNameScreen.routeName: (context) =>
               const ChangeuserNameScreen(),
@@ -125,6 +138,9 @@ class Sigma extends StatelessWidget {
               const AddEditBankAccountScreen(),
           BankDetailScreen.routeName: (context) => const BankDetailScreen(),
           EnableBiometric.routeName: (context) => const EnableBiometric(),
+          CreatePinScreen.routeName: (context) => const CreatePinScreen(),
+          UpdateUserNamePin.routeName: (context) => const UpdateUserNamePin(),
+          ResetPin_Pin.routeName: (context) => const ResetPin_Pin(),
         },
       ),
     );

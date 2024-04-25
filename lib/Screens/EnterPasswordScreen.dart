@@ -4,6 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:password_manager/Screens/HomeScreen.dart';
+import 'package:password_manager/main.dart';
 
 class EnterPasswordScreen extends StatefulWidget {
   static const routeName = 'EnterPasswordScreen';
@@ -14,10 +15,10 @@ class EnterPasswordScreen extends StatefulWidget {
 }
 
 class _EnterPasswordScreenState extends State<EnterPasswordScreen> {
-  final _checkPasswordController = TextEditingController();
+  // final _checkPasswordController = TextEditingController();
   bool isSupported = Hive.box('userinfo').getAt(2);
-  bool _eye = true;
-  bool _password = true;
+  // bool _eye = true;
+  // bool _password = true;
   final auth = LocalAuthentication();
 
   Future<bool> BiometricAuth() async {
@@ -37,121 +38,169 @@ class _EnterPasswordScreenState extends State<EnterPasswordScreen> {
     }
   }
 
+  String inputnum = "";
+  bool valid = true;
+  Widget KeyPad(String num) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 7),
+      child: Material(
+        clipBehavior: Clip.hardEdge,
+        shadowColor: Colors.grey,
+        elevation: 0.5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: InkWell(
+          child: TextButton(
+            onPressed: num == "x"
+                ? () {
+                    setState(
+                      () {
+                        valid = true;
+                        if (inputnum.isNotEmpty) {
+                          inputnum = inputnum.substring(0, inputnum.length - 1);
+                        }
+                      },
+                    );
+                  }
+                : num == "y"
+                    ? () {
+                        setState(
+                          () {
+                            final _hivebox = Hive.box('userinfo');
+                            if (inputnum.length == 4 &&
+                                inputnum == _hivebox.getAt(0)) {
+                              Navigator.of(context)
+                                  .pushReplacementNamed(HomeScreen.routeName);
+                            } else {
+                              valid = false;
+                            }
+                          },
+                        );
+                      }
+                    : () {
+                        setState(() {
+                          valid = true;
+                          if (inputnum.length <= 3) {
+                            inputnum = inputnum + num;
+                          }
+                        });
+                      },
+            child: num == "x"
+                ? Icon(
+                    Icons.backspace,
+                    color: Colors.red.shade400,
+                    size: 25,
+                  )
+                : num == "y"
+                    ? const Icon(
+                        Icons.check_circle,
+                        color: Colors.blue,
+                        size: 25,
+                      )
+                    : Text(
+                        num,
+                        style: const TextStyle(
+                          fontSize: 23,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  List<String> numbers = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "x",
+    "0",
+    "y"
+  ];
+
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context).size;
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 10),
-          padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
-          child: Column(
+    return WillPopScope(
+      child: SafeArea(
+        child: Scaffold(
+          body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: media.height * 0.07,
+                // height: 20,
+                height: media.height * 0.025,
+              ),
+              const Text(
+                "Enter your PIN",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(
-                height: media.height * 0.27,
-                child: LottieBuilder.asset('assets/enterpassword.json'),
+                // height: 80,
+                height: media.height * 0.100,
+              ),
+              Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 9,
+                children: [
+                  Icon(
+                    inputnum.isNotEmpty ? Icons.circle : Icons.circle_outlined,
+                    size: 28,
+                  ),
+                  Icon(
+                    inputnum.length >= 2 ? Icons.circle : Icons.circle_outlined,
+                    size: 28,
+                  ),
+                  Icon(
+                    inputnum.length >= 3 ? Icons.circle : Icons.circle_outlined,
+                    size: 28,
+                  ),
+                  Icon(
+                    inputnum.length == 4 ? Icons.circle : Icons.circle_outlined,
+                    size: 28,
+                  ),
+                ],
+              ),
+              SizedBox(
+                // height: 60,
+                height: media.height * 0.075,
               ),
               Text(
-                "Enter Password",
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Card(
-                elevation: 1,
-                color: Colors.grey.shade200,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                child: TextField(
-                  obscureText: _eye,
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(
-                          () {
-                            _eye = !_eye;
-                          },
-                        );
-                      },
-                      icon: Icon(
-                        _eye ? Icons.visibility_off : Icons.visibility,
-                        color: Colors.black,
-                      ),
-                    ),
-                    prefixIcon: const Icon(
-                      Icons.lock,
-                      color: Colors.black,
-                    ),
-                    labelText: 'Password',
-                    labelStyle: const TextStyle(color: Colors.black),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(
-                        width: 2,
-                        color: Colors.grey.shade400,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: const BorderSide(
-                        width: 2,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  keyboardType: TextInputType.visiblePassword,
-                  textInputAction: TextInputAction.done,
-                  controller: _checkPasswordController,
-                  onChanged: (value) => setState(
-                    () {
-                      _password = true;
-                    },
-                  ),
-                ),
-              ),
-              _password == false
-                  ? const Text(
-                      "Incorrect password",
-                      style: TextStyle(color: Colors.red, fontSize: 16),
-                    )
-                  : const Text(''),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                width: double.infinity,
-                child: TextButton.icon(
-                  onPressed: () {
-                    if (Hive.box('userinfo').getAt(0) !=
-                        _checkPasswordController.text) {
-                      setState(
-                        () {
-                          _password = false;
-                        },
-                      );
-                    }
-                    if (Hive.box('userinfo').getAt(0) ==
-                        _checkPasswordController.text) {
-                      Navigator.of(context)
-                          .pushReplacementNamed(HomeScreen.routeName);
-                    }
-                  },
-                  icon: const Icon(Icons.lock_open_outlined),
-                  label: Text(
-                    "Unlock",
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                  style: TextButton.styleFrom(
-                    iconColor: Colors.black,
-                    backgroundColor: Colors.yellow,
-                  ),
+                !valid ? "Incorrect PIN" : "",
+                style: const TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               SizedBox(
-                height: media.height * 0.20,
+                // height: 60,
+                height: media.height * 0.075,
+              ),
+              Wrap(
+                children: [
+                  ...numbers.map(
+                    (e) => SizedBox(
+                      width: media.width / 3,
+                      height: media.height * 0.11,
+                      child: KeyPad(e),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: media.height * 0.03,
               ),
               if (Hive.box('userinfo').getAt(3) &&
                   Hive.box('userinfo').getAt(2))
@@ -167,7 +216,7 @@ class _EnterPasswordScreenState extends State<EnterPasswordScreen> {
                     },
                     child: const Icon(
                       Icons.fingerprint,
-                      size: 70,
+                      size: 65,
                     ),
                   ),
                 ),
@@ -175,6 +224,10 @@ class _EnterPasswordScreenState extends State<EnterPasswordScreen> {
           ),
         ),
       ),
+      onWillPop: () async {
+        SystemNavigator.pop();
+        return true;
+      },
     );
   }
 }

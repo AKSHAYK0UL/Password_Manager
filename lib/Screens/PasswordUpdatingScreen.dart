@@ -41,7 +41,7 @@ class _PasswordUpdatingScreenState extends State<PasswordUpdatingScreen> {
               ),
             ),
             Text(
-              'Password Updated',
+              'Updating...',
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ],

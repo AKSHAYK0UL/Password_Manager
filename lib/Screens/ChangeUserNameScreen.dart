@@ -13,8 +13,6 @@ class ChangeuserNameScreen extends StatefulWidget {
 }
 
 class _ChangeuserNameScreenState extends State<ChangeuserNameScreen> {
-  bool _eyeCurrent = true;
-  String? _password;
   String? _username;
 
   final _formKey = GlobalKey<FormState>();
@@ -32,12 +30,13 @@ class _ChangeuserNameScreenState extends State<ChangeuserNameScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final media = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Theme.of(context).canvasColor,
         title: Text(
-          'Update Username',
+          'Update UserName',
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
@@ -51,74 +50,19 @@ class _ChangeuserNameScreenState extends State<ChangeuserNameScreen> {
               children: [
                 Container(
                   margin:
-                      const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                  height: 150,
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                  // height: 180,
+                  height: WidgetsBinding.instance.window.viewInsets.bottom > 0.0
+                      ? media.height * 0.155
+                      : media.height * 0.250,
                   child: Lottie.asset(
                     'assets/username.json',
+                    fit: BoxFit.contain,
                     repeat: false,
                   ),
                 ),
-                Card(
-                  color: Colors.grey.shade200,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (Hive.box('userinfo').getAt(0) != _password) {
-                        return 'Incorrect password';
-                      }
-                      return null;
-                    },
-                    onSaved: (newValue) {
-                      _password = newValue;
-                    },
-                    obscureText: _eyeCurrent,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(
-                        Icons.lock,
-                        color: Colors.black,
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _eyeCurrent = !_eyeCurrent;
-                          });
-                        },
-                        icon: Icon(
-                          _eyeCurrent ? Icons.visibility_off : Icons.visibility,
-                          color: Colors.black,
-                        ),
-                      ),
-                      labelText: 'Password',
-                      labelStyle: const TextStyle(color: Colors.black),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide:
-                            BorderSide(width: 2, color: Colors.grey.shade400),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide:
-                            const BorderSide(width: 2, color: Colors.black),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide:
-                            const BorderSide(width: 2, color: Colors.red),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide:
-                            const BorderSide(width: 2, color: Colors.red),
-                      ),
-                    ),
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.visiblePassword,
-                  ),
-                ),
                 const SizedBox(
-                  height: 15,
+                  height: 30,
                 ),
                 Card(
                   color: Colors.grey.shade200,

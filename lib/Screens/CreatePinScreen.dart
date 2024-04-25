@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:password_manager/Screens/EnableBiometric.dart';
 
-import 'PasswordUpdatingScreen.dart';
+import 'CreatingUserScreen.dart';
 
-class ChangePasswordScreen extends StatefulWidget {
-  static const routeName = "ChangePasswordScreen";
-  const ChangePasswordScreen({super.key});
+class CreatePinScreen extends StatefulWidget {
+  static const routeName = "CreatePinScreen";
+  const CreatePinScreen({super.key});
 
   @override
-  State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
+  State<CreatePinScreen> createState() => _CreatePinScreenState();
 }
 
-class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
+class _CreatePinScreenState extends State<CreatePinScreen> {
   String inputnum = "";
   bool valid = true;
   Widget KeyPad(String num) {
@@ -44,10 +45,16 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             () {
                               if (inputnum.length == 4) {
                                 final _hivebox = Hive.box('userinfo');
+                                _hivebox.put(2, _isFingerPrintSupported);
 
                                 _hivebox.put(0, inputnum);
-                                Navigator.of(context).pushReplacementNamed(
-                                    PasswordUpdatingScreen.routeName);
+                                if (_isFingerPrintSupported) {
+                                  Navigator.of(context)
+                                      .pushNamed(EnableBiometric.routeName);
+                                } else {
+                                  Navigator.of(context).pushReplacementNamed(
+                                      CreatingUserScreen.routeName);
+                                }
                               } else {
                                 valid = false;
                               }
